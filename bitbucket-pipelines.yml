@@ -10,6 +10,7 @@ pipelines:
     - step:
         caches:
           - maven
-        script: # Modify the commands below to build your repository.
-          - mvn -B verify # -B batch mode makes Maven less verbose
+        script:
+          - mvn -B clean install jib:build -Djib.to.auth.username=$DOCKER_USERNAME -Djib.to.auth.password=$DOCKER_PASSWORD
+
 
