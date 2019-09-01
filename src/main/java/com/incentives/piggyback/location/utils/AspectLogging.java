@@ -20,7 +20,11 @@ public class AspectLogging {
 	private static final Logger logger = LoggerFactory.getLogger(AspectLogging.class);
 
 	@Pointcut("execution(public !void org.springframework.data.repository.Repository+.*(..))")
-	public void publicNonVoidRepositoryMethod() {}
+	public void publicNonVoidRepositoryMethod() {
+		/**
+		 * Basically a pointcut for the repo
+		 */
+	}
 
 	@Around("execution( * com.incentives.piggyback.location.controller..*.*(..)) || "
 			+ "execution( * com.incentives.piggyback..*.*(..)) || publicNonVoidRepositoryMethod()")

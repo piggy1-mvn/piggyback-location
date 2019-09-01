@@ -1,6 +1,5 @@
 package com.incentives.piggyback.location.utils;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -9,13 +8,6 @@ public class CommonUtility {
 
 	public static boolean isNullObject(Object obj) {
 		return (null == obj ? true : false);
-	}
-
-	public static String validMobileNumber(String mobile) {
-		if (isValidString(mobile) && mobile.charAt(0) == '+') {
-			mobile = mobile.substring(3);
-		}
-		return mobile;
 	}
 
 	public static Boolean hasMoreElements(Long totalElements, Integer page, Integer size) {
@@ -32,12 +24,6 @@ public class CommonUtility {
 
 	public static boolean isValidCollection(Collection<?> obj) {
 		return (obj != null && obj.size() > 0 ? true : false);
-	}
-
-	public static double getScaledAmount(double amount) {
-		BigDecimal scaledAmount = new BigDecimal(amount);
-		scaledAmount = scaledAmount.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-		return scaledAmount.doubleValue();
 	}
 
 	public static boolean isValidInteger(Integer value) {
