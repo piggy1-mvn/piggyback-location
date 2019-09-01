@@ -18,16 +18,8 @@ public enum ExceptionResponseCode {
 		return code;
 	}
 
-	public void setCode(int code) {
-		this.code = code;
-	}
-
 	public String getDescription() {
 		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	private ExceptionResponseCode(int code, String description) {
