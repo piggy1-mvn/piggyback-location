@@ -30,9 +30,6 @@ public class LocationController {
 	@Autowired
 	private LocationEventPublisher.PubsubOutboundGateway messagingGateway;
 
-	//TODO: Remove object instantiation and make methods static
-	TopicHelper topicHelper = new TopicHelper();
-
 	@RequestMapping(value="/location")
 	@PostMapping
 	public ResponseEntity<RestResponse<String>> saveLocationCoordinates(@RequestBody 
@@ -42,8 +39,8 @@ public class LocationController {
 				RestUtils.successResponse(locationService.saveLocationCoordinates(location));
 
 		try {
-			if(!topicHelper.checkTopicExists(Constant.LOCATION_PUBLISHER_TOPIC)) {
-				topicHelper.createTopic(Constant.LOCATION_PUBLISHER_TOPIC);
+			if(!TopicHelper.checkTopicExists(Constant.LOCATION_PUBLISHER_TOPIC)) {
+				TopicHelper.createTopic(Constant.LOCATION_PUBLISHER_TOPIC);
 			}
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage());
