@@ -7,7 +7,7 @@ import java.util.Map;
 public class CommonUtility {
 
 	public static boolean isNullObject(Object obj) {
-		return (null == obj ? true : false);
+		return (null == obj);
 	}
 
 	public static Boolean hasMoreElements(Long totalElements, Integer page, Integer size) {
@@ -15,40 +15,42 @@ public class CommonUtility {
 	}
 
 	public static boolean isValidString(String obj) {
-		return ((null == obj || obj.trim().isEmpty()) ? false : true);
+		return (null != obj && !obj.trim().isEmpty());
 	}
 
 	public static boolean isValidMap(Map<?, ?> map) {
-		return ((null == map || map.size() == 0) ? false : true);
+		return (null != map && map.size() != 0);
 	}
 
 	public static boolean isValidCollection(Collection<?> obj) {
-		return (obj != null && obj.size() > 0 ? true : false);
+		return (obj != null && obj.size() > 0);
 	}
 
 	public static boolean isValidInteger(Integer value) {
-		return ((null == value || value.intValue() == 0) ? false : true);
+		return (value != null && value != 0);
 	}
 
 	public static boolean isValidDouble(Double value) {
-		return ((null == value) ? false : true);
+		return (null != value);
 	}
 
 	public static boolean isValidFloat(Float value) {
-		return ((null == value) ? false : true);
+		return (null != value);
 	}
 
 	public static boolean isValidLong(Long value) {
-		return ((null == value || value.intValue() == 0) ? false : true);
+		return (null != value && value.intValue() != 0);
 	}
 
 	public static boolean isValidList(List<?> list) {
-		return ((list == null || list.size() == 0) ? false : true);
+		return (list != null && list.size() != 0);
 	}
 
 	public static boolean isNotEmpty(String attrKey) {
-		if (!attrKey.isEmpty())
-			return true;
-		return false;
+		return !attrKey.isEmpty();
+	}
+
+	public static String stringifyEventForPublish(String a, String b, String c, String d, String e) {
+		return a + "" + b + ";" + c + ";" + d + ";" + e;
 	}
 }

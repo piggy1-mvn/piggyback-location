@@ -26,5 +26,4 @@ public enum ExceptionResponseCode {
 		this.code = code;
 		this.description = description;
 	}
-
 }
