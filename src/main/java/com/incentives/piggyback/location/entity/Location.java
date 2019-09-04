@@ -5,9 +5,9 @@ import org.springframework.hateoas.ResourceSupport;
 public class Location extends ResourceSupport {
 
 	private Long userId;
-	private Double latitude;
-	private Double longitude;
-	private Double gpsAccuracy;
+	private double latitude;
+	private double longitude;
+	private double gpsAccuracy;
 	private String deviceId;
 	
 	public Long getUserId() {
