@@ -51,6 +51,6 @@ public class CommonUtility {
 	}
 
 	public static String stringifyEventForPublish(String a, String b, String c, String d, String e) {
-		return a + "" + b + ";" + c + ";" + d + ";" + e;
+		return a + ";" + b + ";" + c + ";" + d + ";" + e;
 	}
 }
