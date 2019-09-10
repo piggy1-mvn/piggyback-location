@@ -33,7 +33,7 @@ public class LocationController {
 	@Autowired
 	private LocationEventPublisher.PubsubOutboundGateway messagingGateway;
 
-	@RequestMapping	@PostMapping
+	@PostMapping
 	public ResponseEntity<RestResponse<String>> saveLocationCoordinates(@RequestBody 
 			Location location) throws PiggyException {
 
@@ -52,15 +52,13 @@ public class LocationController {
 		return response;
 	}
 	
-	@RequestMapping(value="/user")
-	@GetMapping
+	@GetMapping(value="/user")
 	public ResponseEntity<RestResponse<List<LocationEntity>>> getNearbyUsers(
 			@RequestParam("userId") Long userId,
 			@RequestParam(value = "latitude") Double latitude,
 			@RequestParam(value = "longitude") Double longitude,
 			@RequestParam(value = "page", required = false) Integer page
 			) throws PiggyException {
-
 		return RestUtils.successResponse(locationService.getNearbyUsers
 						(userId, latitude, longitude, page));
 	}
