@@ -1,4 +1,4 @@
-package com.incentives.piggyback.location.serviceImpl;
+package com.incentives.piggyback.location.serviceimpl;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
 package com.incentives.piggyback.location.controller;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.incentives.piggyback.location.dto.LocationEntity;
 import com.incentives.piggyback.location.entity.Location;
 import com.incentives.piggyback.location.exception.PiggyException;
+import com.incentives.piggyback.location.publisher.LocationEventPublisher;
 import com.incentives.piggyback.location.service.LocationService;
+import com.incentives.piggyback.location.utils.CommonUtility;
+import com.incentives.piggyback.location.utils.Constant;
 import com.incentives.piggyback.location.utils.RestResponse;
 import com.incentives.piggyback.location.utils.RestUtils;
 
@@ -24,12 +27,11 @@ import com.incentives.piggyback.location.utils.RestUtils;
 @RequestMapping(value="/location")
 public class LocationController {
 
-	private static final Log LOGGER = LogFactory.getLog(LocationController.class);
-
 	@Autowired
 	private LocationService locationService;
-//	@Autowired
-//	private LocationEventPublisher.PubsubOutboundGateway messagingGateway;
+	
+	@Autowired
+	private LocationEventPublisher.PubsubOutboundGateway messagingGateway;
 
 	@RequestMapping	@PostMapping
 	public ResponseEntity<RestResponse<String>> saveLocationCoordinates(@RequestBody 
@@ -38,7 +40,14 @@ public class LocationController {
 		ResponseEntity<RestResponse<String>> response =
 				RestUtils.successResponse(locationService.saveLocationCoordinates(location));
 
-		pushToPubsub();
+		messagingGateway.sendToPubsub(
+				CommonUtility.stringifyEventForPublish(
+						UUID.randomUUID().toString(),
+						Constant.LOCATION_CREATED_EVENT,
+						Calendar.getInstance().getTime().toString(),
+						"",
+						Constant.LOCATION_SOURCE_ID
+				));
 
 		return response;
 	}
@@ -54,25 +63,6 @@ public class LocationController {
 
 		return RestUtils.successResponse(locationService.getNearbyUsers
 						(userId, latitude, longitude, page));
-	}
-
-	private void pushToPubsub() {
-//		try {
-//			if(!TopicHelper.checkTopicExists(Constant.LOCATION_PUBLISHER_TOPIC)) {
-//				TopicHelper.createTopic(Constant.LOCATION_PUBLISHER_TOPIC);
-//			}
-//		} catch (IOException e) {
-//			LOGGER.error(e.getMessage());
-//		}
-//
-//		messagingGateway.sendToPubsub(
-//				CommonUtility.stringifyEventForPublish(
-//						UUID.randomUUID().toString(),
-//						Constant.LOCATION_CREATED_EVENT,
-//						Calendar.getInstance().getTime().toString(),
-//						"",
-//						Constant.LOCATION_SOURCE_ID
-//						));
 	}
 
 }
