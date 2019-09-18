@@ -10,6 +10,6 @@ import com.incentives.piggyback.location.dto.LocationEntity;
 
 public interface LocationRepository extends MongoRepository<LocationEntity, String> {
 
-	List<LocationEntity> findByUserId(Long userId);
-	List<LocationEntity> findByUserIdNotAndLocationWithin(Long userId, Circle circle, Pageable pageable);
+	List<LocationEntity> findByUserId(String userId);
+	List<LocationEntity> findByUserIdNotAndLocationWithin(String userId, Circle circle, Pageable pageable);
 }

@@ -1,5 +1,6 @@
 package com.incentives.piggyback.location.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,18 +41,22 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public List<LocationEntity> getNearbyUsers(Long userId, double latitude, double longitude, Integer page) {
+	public List<String> getNearbyUsers(String userId, double latitude, double longitude, Integer page) {
 		Point point = new Point(latitude, longitude);
 		Circle circle = new Circle(point, new Distance(10, Metrics.KILOMETERS));
 		Pageable pageable = PageRequest.of((page == null)? 0 : page, 50);
 		List<LocationEntity> nearbyLocations = locationRepository.findByUserIdNotAndLocationWithin
 				(userId, circle, pageable);
-		return nearbyLocations;
+		List<String> userIds = new ArrayList<String>();
+		nearbyLocations.forEach(location-> {
+			userIds.add(location.getUserId());
+		});
+		return userIds;
 	}
 
 	private void validateLocationParameters(Location location) {
 		if (!(CommonUtility.isValidDouble(location.getLatitude()) && CommonUtility.isValidDouble(location.getLongitude())
-				&& CommonUtility.isValidLong(location.getUserId())))
+				&& CommonUtility.isValidString(location.getUserId())))
 			throw new PiggyException(ExceptionResponseCode.USER_DATA_NOT_FOUND_IN_REQUEST);
 	}
 

@@ -15,7 +15,7 @@ public class LocationEntity {
 	@JsonIgnore
 	@Id
 	private String locationId;
-	private Long userId;
+	private String userId;
 	@GeoSpatialIndexed
 	private double[] location;
 	private double gpsAccuracy;
@@ -32,7 +32,7 @@ public class LocationEntity {
 	public String getLocationId() {
 		return locationId;
 	}
-	public Long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 	public Double getGpsAccuracy() {
@@ -50,7 +50,7 @@ public class LocationEntity {
 	public void setLocationId(String locationId) {
 		this.locationId = locationId;
 	}
-	public void setUserId(Long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	public void setGpsAccuracy(Double gpsAccuracy) {

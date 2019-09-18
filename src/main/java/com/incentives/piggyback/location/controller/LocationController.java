@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.incentives.piggyback.location.dto.LocationEntity;
 import com.incentives.piggyback.location.entity.Location;
 import com.incentives.piggyback.location.exception.PiggyException;
 import com.incentives.piggyback.location.publisher.LocationEventPublisher;
@@ -53,8 +52,8 @@ public class LocationController {
 	}
 	
 	@GetMapping(value="/user")
-	public ResponseEntity<RestResponse<List<LocationEntity>>> getNearbyUsers(
-			@RequestParam("userId") Long userId,
+	public ResponseEntity<RestResponse<List<String>>> getNearbyUsers(
+			@RequestParam("userId") String userId,
 			@RequestParam(value = "latitude") Double latitude,
 			@RequestParam(value = "longitude") Double longitude,
 			@RequestParam(value = "page", required = false) Integer page
