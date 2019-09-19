@@ -12,7 +12,7 @@ services:
 - docker
 
 before_install:
-  - openssl aes-256-cbc -k "$DECRYPT_KEY" -in secret-storage.json.enc -out secret-storage.json -d
+- openssl aes-256-cbc -k "$DECRYPT_KEY" -in secret-storage.json.enc -out secret-storage.json -d -md sha256
 
 install: skip
 
@@ -26,7 +26,8 @@ script:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker push piggy1/location
 - gcloud version || true
-- if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+- if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export
+  CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
 - source /home/travis/google-cloud-sdk/path.bash.inc
 - gcloud version
 - mvn -Pprod clean verify
@@ -40,4 +41,4 @@ after_success:
 
 env:
   global:
-    secure: Sj0NggTmdIUm8pswzS6HBM6U/TFR7zDjsA3tyafkGnKEVcU4JaeJVL9xw0xUwk07LD+VXxyPXqj78sjrfLNLYhr56m9agZfvv3NdiLpsFuAwkYATVPBKYHvIRm9Cb9DmCTUgmdb8Xb3y2BcdTUJaLsek0fXPZfZaL5yuGaNpE2csjj3DCWDsoPHXj/jSA/rLo1CY4TUIr+W1sYyvn4crs0qOBwp4gUAO/1LEoGiUcw6laOoowzx3k0MO4Y5dFLlrCZ7kl3pCBINLajppesGbLXlN5xKHB/zMsrsRXg4F32u34a08nqT6A/gpzP5TFOxuIlK2RvxRS8lhOsED7+dLU8hCEpV/ce3iCD4sBLdNe149scqtAHm3zINkkU9joD9FjFfunIG+9vFjVzU4Vcm1PrryMiVqJ2AbS3MI41+8TEftWDdCs9uZ2bDRkpOrg5yAlcl9UlkVyog+/yrR3VQJyBdDxKrroRvjfqs5XxXnd4f3n19L/xgWJQsh+U/huynUcT6+y1ish3PvT0FUjfZ3OGOythfXgLaJoL4QhdI/ySb5y1+1HP7ViakHu2EcjT5CwxdBUSTNZPhGwUXrcKD5et2IELJ58+EKnFwqaXnTIXoPRvr+9uhXsEOv80gtFnxy9hnOtNcO992kSD1wX3FDDTrhdpc+WWp7HSS8+RCyivw=
+    secure: lxfKeIcRTJ1e+Cw5Lo11qy8klwUfx/K1X1H4umq/hfhEOLoLRFmiqmRn1QK8vNguDOR9VHMP0sh87K82akIPhigDyJvzvxsbqzx+pMnQ0VIrzlPI//MUiw77sN6shayoIRF2/aQbg2jEWGOjt/UpR8sGzv73lTeVGfvIiMNdpigDhudcCTaRKFGAklnruIVUP9J46dVzDtA1w2fd6B5k2xs8FK3XsLBqC96SXZXNSwJL4Nx1gz45J3X0Q8RP9B9mWMFEA9nTc42aXN9lgXKKwJRGkxuGNuu2oCHkPa9meBPd6ksdJW0di7Nva/oWSPM4nUw6NK/M5uGZGd/I4kSVxpsjQM6dh1oNPEFtJ8jy079x0e6sGdnzqPGF96y04GGnJCCmVUaG6MEz2NpSj3CqL6/yZgkNA1WbDXCXDGNwaoaNH3kplxijFJbzRZVIyQ2bC+9jj5AM9fl44GSLWrZcZUgJtAT8KvZgKaJua3ud303T2HpFEeI9yIYj8E1ETFk02+oxe7XfyO0wxOmp1HDFnX4N6OrkpTWDts7oyWt95iTpKuViBaCakJaQEddgS3jHCwNSsq1FwcYAjdhqTt1aHvfYp+3NpBpqakI999cleYBbhKsUpK8WC3V8cQxaRlAOa/gruYrzuHU1QQndyZjFUXtRkIs7jw75MFKCD20brUE=
