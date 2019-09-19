@@ -13,6 +13,7 @@ services:
 
 before_install:
 - openssl aes-256-cbc -k "$DECRYPT_KEY" -in secret-storage.json.enc -out secret-storage.json -d -md sha256
+
 install: skip
 
 addons:
@@ -30,12 +31,9 @@ script:
 - gcloud version
 - mvn -Pprod clean verify
 - docker build -t location-prod .
-
-deploy:
-  provider: script
-  script: bash docker_push
-  on:
-    branch: master
+- if [ "$TRAVIS_BRANCH" = "master" ]; then docker tag location-prod gcr.io/absolute-text-251105/piggy1-location:v1; fi
+- if [ "$TRAVIS_BRANCH" = "master" ]; then cat secret-storage.json | docker login -u _json_key --password-stdin https://gcr.io; fi
+- if [ "$TRAVIS_BRANCH" = "master" ]; then docker push gcr.io/absolute-text-251105/piggy1-location:v1; fi
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
