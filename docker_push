@@ -1,3 +1,4 @@
 #!/bin/bash
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-docker push piggy1/location
+docker tag location-prod gcr.io/absolute-text-251105/piggy1-location:v1
+cat secret-storage.json | docker login -u _json_key --password-stdin https://gcr.io
+docker push gcr.io/absolute-text-251105/piggy1-location:v1
