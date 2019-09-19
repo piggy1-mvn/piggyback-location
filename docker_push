@@ -1,4 +1,0 @@
-#!/bin/bash
-docker tag location-prod gcr.io/absolute-text-251105/piggy1-location:v1
-cat secret-storage.json | docker login -u _json_key --password-stdin https://gcr.io
-docker push gcr.io/absolute-text-251105/piggy1-location:v1
