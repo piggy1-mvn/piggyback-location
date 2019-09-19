@@ -8,6 +8,7 @@ cache:
   directories:
     - $HOME/.m2
     - $HOME/.sonar/cache
+    - $HOME/google-cloud-sdk
 
 services:
   - docker
@@ -20,8 +21,14 @@ addons:
     organization: "piggyback"
 
 script:
-  - mvn -Pprod clean verify sonar:sonar -Dsonar.projectKey=piggy1-mvn_piggyback-location
+  - mvn clean verify sonar:sonar -Dsonar.projectKey=piggy1-mvn_piggyback-location
   - docker build -t piggy1/location .
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push piggy1/location
+  - gcloud version || true
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+  - source /home/travis/google-cloud-sdk/path.bash.inc
+  - gcloud version
 
 deploy:
   provider: script
