@@ -32,7 +32,6 @@ script:
 - mvn -Pprod clean verify
 - docker build -t location-prod .
 - if [ "$TRAVIS_BRANCH" = "master" ]; then docker tag location-prod gcr.io/absolute-text-251105/piggy1-location:v1; fi
-- if [ "$TRAVIS_BRANCH" = "master" ]; then docker tag location-prod gcr.io/absolute-text-251105/piggy1-location:latest; fi
 - if [ "$TRAVIS_BRANCH" = "master" ]; then cat secret-storage.json | docker login -u _json_key --password-stdin https://gcr.io; fi
 - if [ "$TRAVIS_BRANCH" = "master" ]; then docker push gcr.io/absolute-text-251105/piggy1-location:v1; fi
 
