@@ -29,11 +29,11 @@ script:
   - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
   - source /home/travis/google-cloud-sdk/path.bash.inc
   - gcloud version
-  - if [ -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; gcloud components install docker-credential-gcr | bash; fi
-  - if [ -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; docker-credential-gcr configure-docker | bash; fi
+  - export CLOUDSDK_CORE_DISABLE_PROMPTS=1; gcloud components install docker-credential-gcr | bash;
+  - export CLOUDSDK_CORE_DISABLE_PROMPTS=1; docker-credential-gcr configure-docker | bash;
   - mvn -Pprod clean verify
   - docker build -t location-prod .
-  - docker tag location-prod gcr.io/absolute-text-251105/piggy1-location
+  - docker tag location-prod gcr.io/absolute-text-251105/piggy1-location:v1
   - docker push gcr.io/absolute-text-251105/piggy1-location:v1
 
 #deploy:
