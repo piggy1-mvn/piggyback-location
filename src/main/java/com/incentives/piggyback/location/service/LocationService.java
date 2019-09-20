@@ -9,5 +9,5 @@ public interface LocationService {
 
 	String saveLocationCoordinates(Location location) throws PiggyException;
 
-	List<String> getNearbyUsers(String userId, double latitude, double longitude, Integer page);
+	List<String> getNearbyUsers(String userId, double latitude, double longitude, Integer page, double optimizedRadius);
 }

@@ -54,12 +54,13 @@ public class LocationController {
 	@GetMapping(value="/user")
 	public ResponseEntity<RestResponse<List<String>>> getNearbyUsers(
 			@RequestParam("userId") String userId,
-			@RequestParam(value = "latitude") Double latitude,
-			@RequestParam(value = "longitude") Double longitude,
+			@RequestParam(value = "latitude") double latitude,
+			@RequestParam(value = "longitude") double longitude,
+			@RequestParam(value = "optimizedRadius") double optimizedRadius,
 			@RequestParam(value = "page", required = false) Integer page
 			) throws PiggyException {
 		return RestUtils.successResponse(locationService.getNearbyUsers
-						(userId, latitude, longitude, page));
+						(userId, latitude, longitude, page, optimizedRadius));
 	}
 
 }
