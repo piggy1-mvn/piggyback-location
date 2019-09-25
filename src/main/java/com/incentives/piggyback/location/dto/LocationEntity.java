@@ -1,37 +1,39 @@
 package com.incentives.piggyback.location.dto;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Document(collection = "location")
 public class LocationEntity {
-	
+
 	@JsonIgnore
 	@Id
 	private String locationId;
-	private Long userId;
-	private Double latitude;
-	private Double longitude;
-	private Double gpsAccuracy;
+	private String userId;
+	@GeoSpatialIndexed
+	private double[] location;
+	private double gpsAccuracy;
 	private String deviceId;
 	private Date createdDate;
 	private Date lastModifiedDate;
-	
+
+	public double[] getLocation() {
+		return location;
+	}
+	public void setLocation(double[] location) {
+		this.location = location;
+	}
 	public String getLocationId() {
 		return locationId;
 	}
-	public Long getUserId() {
+	public String getUserId() {
 		return userId;
-	}
-	public Double getLatitude() {
-		return latitude;
-	}
-	public Double getLongitude() {
-		return longitude;
 	}
 	public Double getGpsAccuracy() {
 		return gpsAccuracy;
@@ -48,14 +50,8 @@ public class LocationEntity {
 	public void setLocationId(String locationId) {
 		this.locationId = locationId;
 	}
-	public void setUserId(Long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
-	}
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
 	}
 	public void setGpsAccuracy(Double gpsAccuracy) {
 		this.gpsAccuracy = gpsAccuracy;
@@ -72,10 +68,8 @@ public class LocationEntity {
 	
 	@Override
 	public String toString() {
-		return "LocationEntity [locationId=" + locationId + ", userId=" + userId + ", latitude=" + latitude
-				+ ", longitude=" + longitude + ", gpsAccuracy=" + gpsAccuracy + ", deviceId=" + deviceId
+		return "LocationEntity [locationId=" + locationId + ", userId=" + userId + ", location="
+				+ Arrays.toString(location) + ", gpsAccuracy=" + gpsAccuracy + ", deviceId=" + deviceId
 				+ ", createdDate=" + createdDate + ", lastModifiedDate=" + lastModifiedDate + "]";
 	}
-	
-	
 }

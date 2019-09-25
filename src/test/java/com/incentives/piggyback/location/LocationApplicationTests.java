@@ -1,28 +1,26 @@
 package com.incentives.piggyback.location;
 
-import com.incentives.piggyback.location.serviceImpl.LocationServiceImpl;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.verifyStatic;
+
+@RunWith(PowerMockRunner.class)
 @SpringBootTest
 public class LocationApplicationTests {
 
-	@InjectMocks
-	private LocationServiceImpl locationService;
-
-	@Before
-	public void setUp() {
-		MockMvcBuilders.standaloneSetup(locationService).build();
-	}
-
 	@Test
+	@PrepareForTest(SpringApplication.class)
 	public void contextLoads() {
+		mockStatic(SpringApplication.class);
+		LocationApplication.main(new String[]{"Hello", "World"});
+		verifyStatic(SpringApplication.class);
+		SpringApplication.run(LocationApplication.class, "Hello", "World");
 	}
 
 }
