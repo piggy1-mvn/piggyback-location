@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: piggyback-location-canary
+  namespace: production
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 10
+  template:
+    metadata:
+      labels:
+        app: piggyback-location
+        env: canary
+    spec:
+      containers:
+      - image: gcr.io/absolute-text-251105/piggy1-location:v2
+        name: piggyback-prod-runner-location
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        imagePullPolicy: Always
+        ports:
+        - name: piggy-location
+          containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /swagger-ui.html
+            port: 8080
+status: {}
