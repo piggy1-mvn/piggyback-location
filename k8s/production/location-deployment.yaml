@@ -17,7 +17,7 @@ spec:
         name: piggyback-prod-runner-location
         resources:
           limits:
-            memory: "256Mi"
+            memory: "384Mi"
             cpu: "200m"
         imagePullPolicy: Always
         ports:

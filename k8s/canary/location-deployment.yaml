@@ -13,11 +13,11 @@ spec:
         env: canary
     spec:
       containers:
-      - image: gcr.io/absolute-text-251105/piggy1-location:v4
+      - image: gcr.io/absolute-text-251105/piggy1-location:v
         name: piggyback-prod-runner-location
         resources:
           limits:
-            memory: "256Mi"
+            memory: "384Mi"
             cpu: "200m"
         imagePullPolicy: Always
         ports:
