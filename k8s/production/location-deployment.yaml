@@ -13,12 +13,12 @@ spec:
         env: production
     spec:
       containers:
-      - image: gcr.io/absolute-text-251105/piggy1-location:v3
+      - image: gcr.io/absolute-text-251105/piggy1-location:v4
         name: piggyback-prod-runner-location
         resources:
           limits:
-            memory: "384Mi"
-            cpu: "300m"
+            memory: "256Mi"
+            cpu: "200m"
         imagePullPolicy: Always
         ports:
         - name: piggy-location
