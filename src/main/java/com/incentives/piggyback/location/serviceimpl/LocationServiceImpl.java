@@ -41,13 +41,11 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public List<String> getNearbyUsers(String userId, double latitude, double longitude,
-			Integer page, double optimizedRadius) {
+	public List<String> getNearbyUsers(String userId, double latitude, double longitude, double optimizedRadius) {
 		Point point = new Point(latitude, longitude);
 		Circle circle = new Circle(point, new Distance(optimizedRadius, Metrics.KILOMETERS));
-		Pageable pageable = PageRequest.of((page == null)? 0 : page, 50);
 		List<LocationEntity> nearbyLocations = locationRepository.findByUserIdNotAndLocationWithin
-				(userId, circle, pageable);
+				(userId, circle);
 		List<String> userIds = new ArrayList<String>();
 		nearbyLocations.forEach(location-> {
 			userIds.add(location.getUserId());
