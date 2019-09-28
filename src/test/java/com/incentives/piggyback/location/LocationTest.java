@@ -34,17 +34,17 @@ public class LocationTest {
 	private MockMvc mvc;
 
 	@Mock
-	private LocationService notificationService;
+	private LocationService locationService;
 
 	@Mock
 	private LocationEventPublisher.PubsubOutboundGateway messagingGateway;
 
 	@InjectMocks
-	LocationController notificationController;
+	LocationController locationController;
 
 	@Before
 	public void setUp() {
-		mvc = MockMvcBuilders.standaloneSetup(notificationController).build();
+		mvc = MockMvcBuilders.standaloneSetup(locationController).build();
 	}
 
 	@Test
