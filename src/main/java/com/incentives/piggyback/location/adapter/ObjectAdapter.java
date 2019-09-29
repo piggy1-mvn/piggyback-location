@@ -20,6 +20,15 @@ public class ObjectAdapter {
 		locationDTO.setLastModifiedDate(Calendar.getInstance().getTime());
 		return locationDTO;
 	}
+	
+	public static LocationEntity updateLocationEntity(LocationEntity existingData, Location location) {
+		double[] points = new double[] {location.getLatitude(), location.getLongitude()};
+		existingData.setLocation(points);
+		existingData.setDeviceId(location.getDeviceId());
+		existingData.setGpsAccuracy(location.getGpsAccuracy());
+		existingData.setLastModifiedDate(Calendar.getInstance().getTime());
+		return existingData;
+	}
 
 	public static LocationEntity getLocationEntity(Location location, LocationEntity locationDTO) {
 		if (location.getGpsAccuracy() > locationDTO.getGpsAccuracy() 
