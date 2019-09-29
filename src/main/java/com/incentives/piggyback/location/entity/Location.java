@@ -13,22 +13,32 @@ public class Location extends ResourceSupport {
 	public String getUserId() {
 		return userId;
 	}
-	public Double getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
-	public Double getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
-	public Double getGpsAccuracy() {
+	public double getGpsAccuracy() {
 		return gpsAccuracy;
 	}
 	public String getDeviceId() {
 		return deviceId;
 	}
-
-	@Override
-	public String toString() {
-		return "Location [userId=" + userId + ", latitude=" + latitude + ", longitude=" + longitude + ", gpsAccuracy="
-				+ gpsAccuracy + ", deviceId=" + deviceId + "]";
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+	public void setGpsAccuracy(double gpsAccuracy) {
+		this.gpsAccuracy = gpsAccuracy;
+	}
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
 }
