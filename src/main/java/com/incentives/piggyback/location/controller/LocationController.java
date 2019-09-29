@@ -56,11 +56,10 @@ public class LocationController {
 			@RequestParam("userId") String userId,
 			@RequestParam(value = "latitude") double latitude,
 			@RequestParam(value = "longitude") double longitude,
-			@RequestParam(value = "optimizedRadius") double optimizedRadius,
-			@RequestParam(value = "page", required = false) Integer page
+			@RequestParam(value = "optimizedRadius") double optimizedRadius
 			) throws PiggyException {
 		return RestUtils.successResponse(locationService.getNearbyUsers
-						(userId, latitude, longitude, page, optimizedRadius));
+						(userId, latitude, longitude, optimizedRadius));
 	}
 
 }
