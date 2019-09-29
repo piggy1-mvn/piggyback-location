@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
@@ -33,7 +31,8 @@ public class LocationServiceImpl implements LocationService {
 		//save in database
 		List<LocationEntity> existingDetails = locationRepository.findByUserId(location.getUserId());
 		if (CommonUtility.isValidList(existingDetails)) {
-
+			LocationEntity existingData = existingDetails.get(0);
+			locationRepository.save(ObjectAdapter.updateLocationEntity(existingData, location));
 		} else {
 			locationRepository.save(ObjectAdapter.getLocationEntity(location));
 		}
