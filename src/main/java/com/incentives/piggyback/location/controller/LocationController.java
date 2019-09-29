@@ -1,8 +1,6 @@
 package com.incentives.piggyback.location.controller;
 
-import java.util.Calendar;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.incentives.piggyback.location.entity.Location;
 import com.incentives.piggyback.location.exception.PiggyException;
-import com.incentives.piggyback.location.publisher.LocationEventPublisher;
 import com.incentives.piggyback.location.service.LocationService;
-import com.incentives.piggyback.location.utils.CommonUtility;
-import com.incentives.piggyback.location.utils.Constant;
 import com.incentives.piggyback.location.utils.RestResponse;
 import com.incentives.piggyback.location.utils.RestUtils;
 
@@ -29,25 +24,11 @@ public class LocationController {
 	@Autowired
 	private LocationService locationService;
 	
-	@Autowired
-	private LocationEventPublisher.PubsubOutboundGateway messagingGateway;
-
 	@PostMapping
 	public ResponseEntity<RestResponse<String>> saveLocationCoordinates(@RequestBody 
 			Location location) throws PiggyException {
-
 		ResponseEntity<RestResponse<String>> response =
 				RestUtils.successResponse(locationService.saveLocationCoordinates(location));
-
-		messagingGateway.sendToPubsub(
-				CommonUtility.stringifyEventForPublish(
-						UUID.randomUUID().toString(),
-						Constant.LOCATION_CREATED_EVENT,
-						Calendar.getInstance().getTime().toString(),
-						"",
-						Constant.LOCATION_SOURCE_ID
-				));
-
 		return response;
 	}
 	
