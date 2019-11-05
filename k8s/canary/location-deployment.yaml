@@ -17,7 +17,7 @@ spec:
         secret:
           secretName: pubsub-key
       containers:
-      - image: gcr.io/omega-palace-254907/piggy1-location:v10
+      - image: gcr.io/omega-palace-254907/piggy1-location:v11
         name: piggyback-prod-runner-location
         env:
           - name: JASYPT_ENCRYPTOR_PASSWORD
