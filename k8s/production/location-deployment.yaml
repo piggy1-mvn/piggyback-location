@@ -13,14 +13,14 @@ spec:
         env: production
     spec:
       containers:
-      - image: gcr.io/omega-palace-254907/piggy1-location:v10
+      - image: gcr.io/omega-palace-254907/piggy1-location:v11
         name: piggyback-prod-runner-location
-      env:
-        - name: JASYPT_ENCRYPTOR_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: jasypt-password
-              key: password
+        env:
+          - name: JASYPT_ENCRYPTOR_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: jasypt-password
+                key: password
         resources:
           limits:
             memory: "384Mi"
