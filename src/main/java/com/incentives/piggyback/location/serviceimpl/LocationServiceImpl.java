@@ -1,4 +1,4 @@
-package com.incentives.piggyback.location.serviceimpl;
+package com.incentives.piggyback.location.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,7 +17,7 @@ import com.incentives.piggyback.location.dto.LocationEntity;
 import com.incentives.piggyback.location.entity.Location;
 import com.incentives.piggyback.location.exception.ExceptionResponseCode;
 import com.incentives.piggyback.location.exception.PiggyException;
-import com.incentives.piggyback.location.publisher.LocationEventPublisher;
+import com.incentives.piggyback.location.publisher.KafkaMessageProducer;
 import com.incentives.piggyback.location.repository.LocationRepository;
 import com.incentives.piggyback.location.service.LocationService;
 import com.incentives.piggyback.location.utils.CommonUtility;
@@ -29,10 +29,13 @@ public class LocationServiceImpl implements LocationService {
 	@Autowired
 	private LocationRepository locationRepository;
 
-	@Autowired
-	private LocationEventPublisher.PubsubOutboundGateway messagingGateway;
+	private final KafkaMessageProducer kafkaMessageProducer;
 
 	Gson gson = new Gson();
+
+	public LocationServiceImpl(KafkaMessageProducer kafkaMessageProducer) {
+		this.kafkaMessageProducer = kafkaMessageProducer;
+	}
 
 	@Override
 	public String saveLocationCoordinates(Location location) {
@@ -70,14 +73,15 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	private void publishLocationUpdates(LocationEntity location, String eventType) {
-		messagingGateway.sendToPubsub(
+		kafkaMessageProducer.send(
 				CommonUtility.stringifyEventForPublish(
 						gson.toJson(location),
 						eventType,
 						Calendar.getInstance().getTime().toString(),
 						"",
 						Constant.LOCATION_SOURCE_ID
-						));
+				)
+		);
 	}
 
 }

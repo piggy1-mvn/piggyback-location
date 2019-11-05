@@ -24,7 +24,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.google.gson.Gson;
 import com.incentives.piggyback.location.controller.LocationController;
 import com.incentives.piggyback.location.entity.Location;
-import com.incentives.piggyback.location.publisher.LocationEventPublisher;
 import com.incentives.piggyback.location.service.LocationService;
 
 @SpringBootTest
@@ -35,9 +34,6 @@ public class LocationTest {
 
 	@Mock
 	private LocationService locationService;
-
-	@Mock
-	private LocationEventPublisher.PubsubOutboundGateway messagingGateway;
 
 	@InjectMocks
 	LocationController locationController;
