@@ -17,6 +17,8 @@ import com.incentives.piggyback.location.service.LocationService;
 import com.incentives.piggyback.location.utils.RestResponse;
 import com.incentives.piggyback.location.utils.RestUtils;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping(value="/location")
 public class LocationController {
