@@ -2,7 +2,6 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: piggyback-location-canary
-  namespace: production
 spec:
   replicas: 0
   progressDeadlineSeconds: 10
@@ -10,12 +9,7 @@ spec:
     metadata:
       labels:
         app: piggyback-location
-        env: canary
     spec:
-      volumes:
-      - name: google-cloud-key
-        secret:
-          secretName: pubsub-key
       containers:
       - image: gcr.io/omega-palace-254907/piggy1-location:v11
         name: piggyback-prod-runner-location
